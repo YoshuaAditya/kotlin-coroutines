@@ -104,7 +104,6 @@ class MainViewModel(private val repository: TitleRepository) : ViewModel() {
      * Wait one second then update the tap count.
      */
     private fun updateTaps() {
-        tapCount++
         viewModelScope.launch {
 //            viewModelScope. launch will start a coroutine in the viewModelScope. This means when the job that we passed to viewModelScope gets canceled, all coroutines in this job/scope will be cancelled. If the user left the Activity before delay returned, this coroutine will automatically be cancelled when onCleared is called upon destruction of the ViewModel.
 //            Since viewModelScope has a default dispatcher of Dispatchers.Main, this coroutine will be launched in the main thread.
