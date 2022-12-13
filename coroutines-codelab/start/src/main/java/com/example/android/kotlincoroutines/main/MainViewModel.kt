@@ -19,8 +19,11 @@ package com.example.android.kotlincoroutines.main
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.android.kotlincoroutines.util.BACKGROUND
 import com.example.android.kotlincoroutines.util.singleArgViewModelFactory
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * MainViewModel designed to store and manage UI-related data in a lifecycle conscious way. This
@@ -101,10 +104,15 @@ class MainViewModel(private val repository: TitleRepository) : ViewModel() {
      * Wait one second then update the tap count.
      */
     private fun updateTaps() {
-        // TODO: Convert updateTaps to use coroutines
         tapCount++
-            Thread.sleep(1_000)
-            _taps.postValue("${tapCount} taps")
+        viewModelScope.launch {
+//            viewModelScope. launch will start a coroutine in the viewModelScope. This means when the job that we passed to viewModelScope gets canceled, all coroutines in this job/scope will be cancelled. If the user left the Activity before delay returned, this coroutine will automatically be cancelled when onCleared is called upon destruction of the ViewModel.
+//            Since viewModelScope has a default dispatcher of Dispatchers.Main, this coroutine will be launched in the main thread.
+            tapCount++
+            delay(1_000)
+            _taps.postValue("$tapCount taps")
+        }
+
     }
 
     /**
