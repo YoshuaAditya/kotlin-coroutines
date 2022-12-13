@@ -23,6 +23,9 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModelProvider
+import androidx.work.ListenableWorker
+import androidx.work.OneTimeWorkRequest
+import androidx.work.WorkManager
 import com.example.android.kotlincoroutines.R
 import com.google.android.material.snackbar.Snackbar
 
@@ -52,7 +55,9 @@ class MainActivity : AppCompatActivity() {
 
         // When rootLayout is clicked call onMainViewClicked in ViewModel
         rootLayout.setOnClickListener {
-            viewModel.onMainViewClicked()
+//            val worker=OneTimeWorkRequest.Builder(RefreshMainDataWork.MainWorker::class.java)
+//            WorkManager.getInstance(this).enqueue(worker.build())
+            viewModel.onMainViewClicked(this)
         }
 
         // update the title when the [MainViewModel.title] changes
