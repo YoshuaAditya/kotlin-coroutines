@@ -49,6 +49,12 @@ android {
         }
     }
 }
+//Error Task 'prepareKotlinBuildScriptModel' not found in project ':start'.
+//https://stackoverflow.com/questions/64290545/task-preparekotlinbuildscriptmodel-not-found-in-project-app
+task prepareKotlinBuildScriptModel {
+
+}
+
 
 dependencies {
     // dependencies are defined in ext arrays in coroutines-codelab/build.gradle
